@@ -6,47 +6,54 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author arkangelofkaos
  */
 public class FibonacciRepresentationTest {
 
-    @Test(dataProvider = "fibonacciTestData")
-    public void givenANumber_shouldReturnAFibonacciRepresentationOfIt(int number, String fibonacciRepresentation) throws Exception {
-        assertEquals(fibonacciRepresentationOf(number), fibonacciRepresentation);
-    }
-
-    @DataProvider(name = "fibonacciTestData")
-    public Object[][] fibonacciTestData() {
-        return new Object[][]{
-                {1, "1"},
-                {2, "10"},
-                {3, "100"}
-        };
-    }
-
     @Test(dataProvider = "fibonacciMultipleRepresentationsTestData")
     public void givenANumber_shouldReturnMultipleFibonacciRepresentationsOfIt(int number, List<String> fibonacciRepresentations) throws Exception {
-        assertEquals(allFibonacciRepresentationOf(number), fibonacciRepresentations);
+        assertThat(allFibonacciRepresentationOf(number), is(fibonacciRepresentations));
     }
 
     @DataProvider(name = "fibonacciMultipleRepresentationsTestData")
     public Object[][] fibonacciMultipleRepresentationsTestData() throws Exception {
         return new Object[][]{
-                {3, asList("100", "101")}
+                {1, asList("1")},
+                {2, asList("10")},
+                {3, asList("100", "11")}
         };
     }
 
-    private String fibonacciRepresentationOf(int n) {
-        switch (n) {
-            case 3:
-                return "100";
+    @DataProvider(name = "fibonacciOneAndZeroes")
+    public Object[][] fibonacciOneAndZeroesTestData() throws Exception {
+        return new Object[][]{
+                {1, "1"},
+                {2, "10"},
+                {3, "100"},
+                {5, "1000"}
+        };
+    }
+
+    @Test(dataProvider = "fibonacciOneAndZeroes")
+    public void givenAFibonacciNumber_shouldReturnARepresentationOneFollowedByNZeroes(int number, String rep) throws Exception {
+        List<String> representations = allFibonacciRepresentationOf(number);
+        assertTrue(representations.contains(rep), "Expected rep:" + rep + " but only found: " + representations);
+    }
+
+    private List<String> allFibonacciRepresentationOf(int number) {
+        switch (number) {
+            case 1:
+                return asList("1");
             case 2:
-                return "10";
+                return asList("10");
             default:
-                return "1";
+                return asList("100", "11");
         }
     }
+
 }
