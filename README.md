@@ -13,15 +13,3 @@ Using these "Fibonacci numbers" as base for numbers, e.g.
 5 = 1000 or 110
 
 Task - show all possible representations of the numbers one to twenty
-"10001"
-
----------------------
-
-listOfFibonacciSumsFor(number)
-.map(list -> fibonacciRepresentation(list))
-
-----------------------
-
--> Large idea (which is validated), small impl steps
--> Idea should be decomposed in steps (halving?)
--> refactoring leads to new paths [high level goal same]
