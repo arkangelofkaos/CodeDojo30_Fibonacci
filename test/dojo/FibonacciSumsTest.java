@@ -15,11 +15,11 @@ import static org.hamcrest.Matchers.contains;
  */
 public class FibonacciSumsTest {
 
-    private FibonacciSumCalculator calculator;
+    private FibonacciSumsCalculator calculator;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        calculator = new FibonacciSumCalculator();
+        calculator = new FibonacciSumsCalculator();
     }
 
     @Test(dataProvider = "fibTestData")
@@ -36,7 +36,7 @@ public class FibonacciSumsTest {
         return new Object[][]{
                 {1, asList(asList(1))},
                 {2, asList(asList(2))},
-//                {3, asList(asList(3), asList(2,1))},
+                {3, asList(asList(3), asList(2, 1))},
 //                {5, asList(asList(5), asList(3,2))},
                 {4, asList(asList(3, 1))},
                 {6, asList(asList(5, 1))},
@@ -44,4 +44,5 @@ public class FibonacciSumsTest {
                 {20, asList(asList(13, 5, 2))},
         };
     }
+
 }
