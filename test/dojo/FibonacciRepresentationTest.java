@@ -3,6 +3,9 @@ package dojo;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
+import static java.util.Arrays.asList;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -11,7 +14,7 @@ import static org.testng.Assert.assertEquals;
 public class FibonacciRepresentationTest {
 
     @Test(dataProvider = "fibonacciTestData")
-    public void givenANumber_shouldReturnIts_FibonacciRepresentation(int number, String fibonacciRepresentation) throws Exception {
+    public void givenANumber_shouldReturnAFibonacciRepresentationOfIt(int number, String fibonacciRepresentation) throws Exception {
         assertEquals(fibonacciRepresentationOf(number), fibonacciRepresentation);
     }
 
@@ -24,11 +27,16 @@ public class FibonacciRepresentationTest {
         };
     }
 
-    @Test
-    public void()throws Exception
+    @Test(dataProvider = "fibonacciMultipleRepresentationsTestData")
+    public void givenANumber_shouldReturnMultipleFibonacciRepresentationsOfIt(int number, List<String> fibonacciRepresentations) throws Exception {
+        assertEquals(allFibonacciRepresentationOf(number), fibonacciRepresentations);
+    }
 
-    {
-
+    @DataProvider(name = "fibonacciMultipleRepresentationsTestData")
+    public Object[][] fibonacciMultipleRepresentationsTestData() throws Exception {
+        return new Object[][]{
+                {3, asList("100", "101")}
+        };
     }
 
     private String fibonacciRepresentationOf(int n) {
