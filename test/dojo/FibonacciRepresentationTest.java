@@ -11,8 +11,8 @@ import static org.testng.Assert.assertEquals;
 public class FibonacciRepresentationTest {
 
     @Test(dataProvider = "fibonacciTestData")
-    public void given_1_shouldReturnFibonacciRepresentationOf_1(int n, String representation) throws Exception {
-        assertEquals(fibonacciRepresentationOf(n), representation);
+    public void givenANumber_shouldReturnIts_FibonacciRepresentation(int number, String fibonacciRepresentation) throws Exception {
+        assertEquals(fibonacciRepresentationOf(number), fibonacciRepresentation);
     }
 
     @DataProvider(name = "fibonacciTestData")
@@ -24,6 +24,12 @@ public class FibonacciRepresentationTest {
         };
     }
 
+    @Test
+    public void()throws Exception
+
+    {
+
+    }
 
     private String fibonacciRepresentationOf(int n) {
         switch (n) {
