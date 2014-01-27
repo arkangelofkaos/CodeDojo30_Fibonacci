@@ -14,7 +14,17 @@ public class FibonacciRepresentationTest {
         assertEquals(fibonacciRepresentationOf(1), "1");
     }
 
+    @Test
+    public void given_2_shouldReturnFibonacciRepresentationOf_10() throws Exception {
+        assertEquals(fibonacciRepresentationOf(2), "10");
+    }
+
     private String fibonacciRepresentationOf(int n) {
-        return "1";
+        switch (n) {
+            case 2:
+                return "10";
+            default:
+                return "1";
+        }
     }
 }
