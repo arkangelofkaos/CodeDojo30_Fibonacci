@@ -2,6 +2,7 @@ package dojo;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -23,11 +24,9 @@ public class FibonacciSumsCalculator {
 
     private List<List<Integer>> fibonacciSumsFor(int number, List<Integer> baseFibonacciNumbers) {
         List<List<Integer>> fibonacciSums = new LinkedList<>();
-        switch (number) {
-            case 1:
-            case 2:
-                fibonacciSums.add(singleNumberFibonacciSum(number));
-                return fibonacciSums;
+        if (baseCase(number)) {
+            fibonacciSums.add(singleNumberFibonacciSum(number));
+            return fibonacciSums;
         }
 
         int maxFibonacci = baseFibonacciNumbers.stream()
@@ -39,23 +38,31 @@ public class FibonacciSumsCalculator {
             fibonacciSums.add(singleNumberFibonacciSum(maxFibonacci));
         } else if (remainder > 0) {
             List<Integer> remainingBaseFibonacciNumbers =
-                    baseFibonacciNumbers.stream()
-                                        .filter(x -> x < maxFibonacci)
-                                        .collect(toList());
+                    remainingBaseFibonacciNumberStream(baseFibonacciNumbers, maxFibonacci)
+                            .collect(toList());
             fibonacciSums.addAll(fibonacciSumsFor(remainder, remainingBaseFibonacciNumbers));
             fibonacciSums.forEach(fibonacciSum -> fibonacciSum.add(maxFibonacci));
         }
 
-        if (baseFibonacciNumbers.stream()
-                                .mapToInt(x -> x)
-                                .filter(x -> x < maxFibonacci)
-                                .sum() >= number) {
-            fibonacciSums.addAll(fibonacciSumsFor(number, baseFibonacciNumbers.stream()
-                                                                              .filter(x -> x < maxFibonacci)
-                                                                              .collect(toList())));
+        if (remainingBaseFibonacciNumberStream(baseFibonacciNumbers, maxFibonacci)
+                .mapToInt(x -> x).sum() >= number) {
+            fibonacciSums.addAll(
+                    fibonacciSumsFor(number,
+                            remainingBaseFibonacciNumberStream(baseFibonacciNumbers, maxFibonacci)
+                                    .collect(toList())
+                    )
+            );
         }
 
         return fibonacciSums;
+    }
+
+    private boolean baseCase(int number) {
+        return number == 1 || number == 2;
+    }
+
+    private Stream<Integer> remainingBaseFibonacciNumberStream(List<Integer> baseFibonacciNumbers, int maxFibonacci) {
+        return baseFibonacciNumbers.stream().filter(x -> x < maxFibonacci);
     }
 
     private LinkedList<Integer> singleNumberFibonacciSum(int number) {
