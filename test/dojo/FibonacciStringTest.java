@@ -33,6 +33,7 @@ public class FibonacciStringTest {
         return new Object[][]{
                 {asList(1, 2, 3), "111"},
                 {asList(1, 8), "10001"},
+                {asList(1, 3, 5), "1101"},
                 {asList(), ""},
         };
     }

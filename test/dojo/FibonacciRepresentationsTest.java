@@ -32,7 +32,9 @@ public class FibonacciRepresentationsTest {
         return new Object[][]{
                 {1, asList("1")},
                 {2, asList("10")},
-                {3, asList("100", "11")}
+                {3, asList("100", "11")},
+                {5, asList("1000", "110")},
+                {6, asList("1001", "111")},
         };
     }
 
