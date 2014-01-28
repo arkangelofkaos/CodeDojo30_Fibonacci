@@ -1,5 +1,6 @@
 package dojo;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -13,12 +14,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class FibonacciStringTest {
 
-    @Test
-    public void givenFibonacciSum_shouldReturnStringRepresentation() throws Exception {
-        assertThat(fibonacciString(asList(1, 2, 3)), is("111"));
+    @Test(dataProvider = "fibonacciStrings")
+    public void givenFibonacciSum_shouldReturnStringRepresentation(List<Integer> fibonacciSum,
+                                                                   String fibonacciString) throws Exception {
+        assertThat(fibonacciString(fibonacciSum), is(fibonacciString));
+    }
+
+    @DataProvider(name = "fibonacciStrings")
+    public Object[][] fibonacciStrings() {
+        return new Object[][]{
+                {asList(1, 2, 3), "111"},
+                {asList(1, 8), "1001"},
+        };
     }
 
     private String fibonacciString(List<Integer> fibonacciSum) {
-        return null;
+        return "111";
     }
 }
